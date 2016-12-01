@@ -12,11 +12,11 @@ import java.io.IOException;
  */
 public class GameWindow extends Frame {
 
-    Image background;
-    Image plane, planeD1, planeD2, planeD4;
-    private int planeX = 350;
-    private int planeY = 400;
-    private int planeD1x = 300, planeD2x = 250, planeD4x = 500, planeD1y = 100, planeD2y = 500, planeD4y = 250;
+    Image background,player1, planeD1, player2;
+    private int player1X = 450;
+    private int player1Y = 400;
+    private int planeD1x = 300, player2X = 300;
+    private int planeD1y = 100, player2Y = 400;
 
     public GameWindow() {
 
@@ -63,10 +63,9 @@ public class GameWindow extends Frame {
 
         try {
             background = ImageIO.read(new File("resources/background.png"));
-            plane = ImageIO.read(new File("resources/plane3.png"));
+            player1 = ImageIO.read(new File("resources/plane3.png"));
             planeD1 = ImageIO.read(new File("resources/plane1.png"));
-            planeD2 = ImageIO.read(new File("resources/plane2.png"));
-            planeD4 = ImageIO.read(new File("resources/plane4.png"));
+            player2 = ImageIO.read(new File("resources/plane2.png"));
         } catch (IOException e) {
             System.out.println("Load Failed !");
             e.printStackTrace();
@@ -76,6 +75,24 @@ public class GameWindow extends Frame {
             @Override
             public void keyTyped(KeyEvent e) {
                 System.out.println("keyTyped !");
+                switch (e.getKeyChar()) {
+                    case 'w':
+                        player2Y -= 5;
+                        repaint();
+                        break;
+                    case 's':
+                        player2Y += 5;
+                        repaint();
+                        break;
+                    case 'd':
+                        player2X += 5;
+                        repaint();
+                        break;
+                    case 'a':
+                        player2X -= 5;
+                        repaint();
+                        break;
+                }
             }
 
             @Override
@@ -83,19 +100,19 @@ public class GameWindow extends Frame {
                 System.out.println("keyPressed !");
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_UP:
-                        planeY -= 5;
+                        player1Y -= 5;
                         repaint();
                         break;
                     case KeyEvent.VK_DOWN:
-                        planeY += 5;
+                        player1Y += 5;
                         repaint();
                         break;
                     case KeyEvent.VK_RIGHT:
-                        planeX += 5;
+                        player1X += 5;
                         repaint();
                         break;
                     case KeyEvent.VK_LEFT:
-                        planeX -= 5;
+                        player1X -= 5;
                         repaint();
                         break;
                 }
@@ -113,9 +130,8 @@ public class GameWindow extends Frame {
     @Override
     public void paint(Graphics g) {
         g.drawImage(background, 0, 0, 800, 600, null);
-        g.drawImage(plane, planeX, planeY, 70, 50, null);
+        g.drawImage(player1, player1X, player1Y, 70, 50, null);
         g.drawImage(planeD1, planeD1x, planeD1y, 70, 50, null);
-        g.drawImage(planeD2, planeD2x, planeD2y, 70, 50, null);
-        g.drawImage(planeD4, planeD4x, planeD4y, 70, 50, null);
+        g.drawImage(player2, player2X, player2Y, 70, 50, null);
     }
 }
